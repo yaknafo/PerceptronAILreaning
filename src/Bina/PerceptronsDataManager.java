@@ -1,3 +1,4 @@
+package Bina;
 import java.util.ArrayList;
 import java.util.Random;
 

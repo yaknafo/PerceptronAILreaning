@@ -1,3 +1,4 @@
+package Bina;
 
 public class Constans {
 	
