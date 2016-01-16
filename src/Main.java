@@ -13,7 +13,8 @@ public static PerceptronsDataManager dm = new PerceptronsDataManager();
 		
 		initData();
 		AlgoritemPerceptrons algo = new AlgoritemPerceptrons();
-		algo.algoTesting(dm.Letters);
+		algo.algoTraining(dm.Letters);
+		algo.algoTesting(dm.LettersTesting);
 		
 	}
 	

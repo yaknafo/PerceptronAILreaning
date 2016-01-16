@@ -6,7 +6,7 @@ public class AlgoritemPerceptrons {
 	
 	public int TrashHole = 1;
 	
-	public double N = 0.2;
+	public double N = 0.05;
 	
 	
 	public void algoTesting(List<LetterRecognition> letter)
@@ -14,7 +14,49 @@ public class AlgoritemPerceptrons {
 		int res = 0;
 		int expectedResult =0;
 		int sumOfCorecctResult =0;
+		int a_right = 0;
+		int b_right = 0;
+		int a_wrong = 0;
+		int b_wrong  = 0;
+		
+		
+			for(LetterRecognition letterRecognition : letter)
+			{
+				expectedResult = convertor(letterRecognition.LetterSymble);
+				res	=checkSingleLetter(letterRecognition);
+				if(res == expectedResult)
+				{
+					sumOfCorecctResult++;
+					if(letterRecognition.LetterSymble =='A')
+						a_right++;
+					else
+						b_right++;
+				}
+				else{
+					if(letterRecognition.LetterSymble =='A')
+						a_wrong++;
+					else
+						b_wrong++;
+				}
+			}
+			
+			double d = (double)sumOfCorecctResult / letter.size();
+			System.out.println("Number Of Corecct Result in Testing: "+ sumOfCorecctResult + " From: "+letter.size());
+			System.out.println("The percent accuracy on the test data: "+ d);
+			System.out.println("‘A’ that were correctly classiﬁed as ‘A’: "+a_right);
+			System.out.println("‘B’ that were correctly classiﬁed as ‘B’: "+b_right);
+			System.out.println("‘A’ that were misclassied as ‘B’: "+a_wrong);
+			System.out.println("‘B’ that were misclassied as ‘A’: "+b_wrong);
+	}
+	
+	public void algoTraining(List<LetterRecognition> letter)
+	{
+		int res = 0;
+		int expectedResult =0;
+		int sumOfCorecctResult =0;
 		int maxOfCorecctResult =0;
+		int counterEpochs = 0;
+		
 		
 		
 		while (true){
@@ -27,7 +69,7 @@ public class AlgoritemPerceptrons {
 					sumOfCorecctResult++;
 			}
 			
-			System.out.println("sum Of Corecct Result: "+ sumOfCorecctResult + " size: "+letter.size());
+			
 			if(maxOfCorecctResult < sumOfCorecctResult)
 			{
 				maxOfCorecctResult = sumOfCorecctResult;
@@ -38,12 +80,17 @@ public class AlgoritemPerceptrons {
 					res	=checkSingleLetter(letterRecognition);
 					if(res != expectedResult)
 					{
+						counterEpochs++;
 						upDateWight(res,expectedResult,letterRecognition);	
 					}
 				}
 			}
 			else
 			{
+				 double d = (double)maxOfCorecctResult / letter.size();
+				System.out.println("Counter Epochs: "+ counterEpochs);
+				System.out.println("Number Of Corecct Result in Training: "+ maxOfCorecctResult + " From: "+letter.size());
+				System.out.println("The percent accuracy on the traning data: "+ d);
 				break;
 			}
 		}
