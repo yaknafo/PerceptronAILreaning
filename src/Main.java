@@ -12,7 +12,9 @@ public static PerceptronsDataManager dm = new PerceptronsDataManager();
 	public static void main(String[] args) {
 		
 		initData();
-		System.out.println(dm.Letters.size());
+		AlgoritemPerceptrons algo = new AlgoritemPerceptrons();
+		algo.algoTesting(dm.Letters);
+		
 	}
 	
 	
@@ -24,27 +26,38 @@ public static PerceptronsDataManager dm = new PerceptronsDataManager();
 
 			String line;
 			String[] numbers;
-			//line = "start"
+			int counter_A = 0;
+			int counter_B = 0;
 			
 			while((line = (in.readLine())) != null)
 			{
 				if(line.charAt(0) == 'A' || line.charAt(0) == 'B')
 				{
+					
+					
 					LetterRecognition temp = new LetterRecognition();
 					
 					temp.LetterSymble = line.charAt(0);
 					numbers =line.split(",");
 					for(int i =1 ; i<17; i++ )
 					{
-						temp.Features[i-1] = Integer.parseInt(numbers[i]);
+						temp.Features[i-1] = Integer.parseInt(numbers[i])/Constans.DivdieFactor;
 				
 					}
+					if(temp.LetterSymble == 'A' && counter_A < Constans.A_training || temp.LetterSymble == 'B' && counter_B < Constans.B_training)
+						dm.Letters.add(temp);
+					else
+						dm.LettersTesting.add(temp);
 					
-					dm.Letters.add(temp);
+					
+					if(temp.LetterSymble == 'A')
+						counter_A++;
+					else
+						counter_B++;
+					
 				}
 			
 			}
-
 			in.close();
 
 			

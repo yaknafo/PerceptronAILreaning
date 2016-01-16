@@ -5,11 +5,13 @@ public class LetterRecognition {
 	
 	public Character LetterSymble;
 
-	public Integer[] Features;
+	public Double[] Features;
+	
+	
 
 	public LetterRecognition() {
 	
-		this.Features = new Integer[16]; 
+		this.Features = new Double[16]; 
 	}
 	
 	
