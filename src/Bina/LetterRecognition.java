@@ -8,13 +8,9 @@ public class LetterRecognition {
 
 	public Double[] Features;
 	
-	
-
 	public LetterRecognition() {
-	
-		this.Features = new Double[16]; 
+		this.Features = new Double[Constans.NUmberOfFeatures]; 
 	}
-	
 	
 
 	@Override

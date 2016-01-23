@@ -2,7 +2,6 @@ package Bina;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class PerceptronsDataManager {
 	
 	public ArrayList<LetterRecognition> Letters;

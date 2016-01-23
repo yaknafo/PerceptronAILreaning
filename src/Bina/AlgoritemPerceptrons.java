@@ -1,16 +1,14 @@
 package Bina;
 import java.util.List;
 
-
-
 public class AlgoritemPerceptrons {
 	
-	public int TrashHole = 1;
+	public int TrashHole = 0;
 	
-	public double N = 0.05;
+	public double N = 0.2;
 	
 	
-	public void algoTesting(List<LetterRecognition> letter)
+	public void algoTesting(List<LetterRecognition> letter, char l)
 	{
 		int res = 0;
 		int expectedResult =0;
@@ -42,15 +40,15 @@ public class AlgoritemPerceptrons {
 			}
 			
 			double d = (double)sumOfCorecctResult / letter.size();
-			System.out.println("Number Of Corecct Result in Testing: "+ sumOfCorecctResult + " From: "+letter.size());
+			System.out.println("Number of correct result in testing: "+ sumOfCorecctResult + " From: "+letter.size());
 			System.out.println("The percent accuracy on the test data: "+ d);
-			System.out.println("‘A’ that were correctly classiﬁed as ‘A’: "+a_right);
-			System.out.println("‘B’ that were correctly classiﬁed as ‘B’: "+b_right);
-			System.out.println("‘A’ that were misclassied as ‘B’: "+a_wrong);
-			System.out.println("‘B’ that were misclassied as ‘A’: "+b_wrong);
+			System.out.println("‘A’ that were correctly classified as ‘A’: "+a_right);
+			System.out.println("'"+l+"' that were correctly classified as '"+l+"': "+b_right);
+			System.out.println("‘A’ that were misclassified as '"+l+"': "+a_wrong);
+			System.out.println("'"+l+"' that were misclassified as ‘A’: "+b_wrong);
 	}
 	
-	public void algoTraining(List<LetterRecognition> letter)
+	public void algoTraining(List<LetterRecognition> letter, char l)
 	{
 		int res = 0;
 		int expectedResult =0;
@@ -89,14 +87,12 @@ public class AlgoritemPerceptrons {
 			else
 			{
 				 double d = (double)maxOfCorecctResult / letter.size();
-				System.out.println("Counter Epochs: "+ counterEpochs);
-				System.out.println("Number Of Corecct Result in Training: "+ maxOfCorecctResult + " From: "+letter.size());
-				System.out.println("The percent accuracy on the traning data: "+ d);
+				System.out.println("Counter epochs: "+ counterEpochs);
+				System.out.println("Number of correct result in training : "+ maxOfCorecctResult + " from: "+letter.size());
+				System.out.println("The percent accuracy on the training data: "+ d);
 				break;
 			}
 		}
-					
-		
 	}
 
 	
@@ -111,6 +107,7 @@ public class AlgoritemPerceptrons {
 		
 	}
 	
+	
 	private double upDateWightSingle(int index , int t, int o,LetterRecognition l) {
 		
 		return PerceptronsDataManager.Wights[index]+N*(t-o)*l.Features[index];
@@ -124,15 +121,17 @@ public class AlgoritemPerceptrons {
 		return activation(sum) ;
 	}
 	
+	
 	public int activation(double compute)
 	{
-		if(compute <= TrashHole)
+		if(compute >= TrashHole)
 		{
-			return -1;
+			return 1;
 		}
-		return 1;
+		return -1;
 		
 	}
+	
 	
 	public double compute(Double[] features, Double[] wights)
 	{
@@ -143,15 +142,15 @@ public class AlgoritemPerceptrons {
 			sum+=computeSingle(features[i], wights[i]);
 		}
 		
-		return sum;
+		return sum+1;
 	}
-	
 	
 	
 	public double computeSingle(Double features, double wight)
 	{
 		return (features) * wight;
 	}
+	
 	
 	private int convertor(char c)
 	{
@@ -160,6 +159,4 @@ public class AlgoritemPerceptrons {
 		return -1;
 	}
 	
-	
-
 }
